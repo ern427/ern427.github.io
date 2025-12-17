@@ -48,23 +48,29 @@
   </div>
 </footer>
 
-<!-- 🔔 ONLINE / OFFLINE KUTUSU -->
+<!-- 🔔 CANLI YAYIN DURUM PANELİ -->
 <div id="liveStatusBox" style="
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 12px 18px;
-  border-radius: 12px;
+  padding: 14px 20px;
+  border-radius: 14px;
   font-weight: bold;
   color: white;
   display: none;
   z-index: 9999;
 ">
-  <span id="liveStatusText"></span>
+  <span id="liveStatusText">OFFLINE</span>
 </div>
 
-<!-- 🔥 SADECE 1 KEZ SCRIPT -->
+<!-- 📢 DUYURU + LİNKLER -->
+<div class="panel-box">
+  <p id="announcementText" class="announcement"></p>
+  <div id="links" class="link-buttons"></div>
+</div>
+
 <script src="app.js"></script>
+
 
 </body>
 </html>
