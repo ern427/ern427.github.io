@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel</title>
+
   <style>
     body { font-family: Arial, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
     .row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
@@ -16,9 +17,15 @@
     .small { font-size: 12px; opacity: 0.8; }
   </style>
 </head>
+
 <body>
-  <h1>Admin Panel (JSON Üretici)</h1>
-  <p class="small">Buradan düzenle → JSON üret → <code>data.json</code> dosyana yapıştır → push.</p>
+
+<h1>Admin Panel (JSON Üretici)</h1>
+<p class="small">Google ile giriş yaptıktan sonra düzenleyebilirsin.</p>
+
+<button id="googleLoginBtn">Google ile Giriş</button>
+
+<div id="adminContent" style="display:none;">
 
   <div class="card">
     <h2>Site Ayarları</h2>
@@ -35,6 +42,7 @@
         </select>
       </div>
     </div>
+
     <div style="margin-top:12px;">
       <label>Duyuru</label>
       <input id="siteAnnouncement" placeholder="Hoş geldin! Yayın saatleri yakında." />
@@ -44,14 +52,8 @@
   <div class="card">
     <h2>Link Ekle</h2>
     <div class="row">
-      <div>
-        <label>Label</label>
-        <input id="linkLabel" placeholder="Kick" />
-      </div>
-      <div>
-        <label>URL</label>
-        <input id="linkUrl" placeholder="https://kick.com/ern427" />
-      </div>
+      <input id="linkLabel" placeholder="Kick" />
+      <input id="linkUrl" placeholder="https://kick.com/ern427" />
     </div>
     <div class="actions" style="margin-top:12px;">
       <button id="addLinkBtn">Link Ekle</button>
@@ -63,14 +65,8 @@
   <div class="card">
     <h2>Komut Ekle</h2>
     <div class="row">
-      <div>
-        <label>Komut</label>
-        <input id="cmdName" placeholder="!discord" />
-      </div>
-      <div>
-        <label>Yanıt</label>
-        <input id="cmdText" placeholder="Discord: https://discord.gg/XXXX" />
-      </div>
+      <input id="cmdName" placeholder="!discord" />
+      <input id="cmdText" placeholder="Discord: https://discord.gg/XXXX" />
     </div>
     <div class="actions" style="margin-top:12px;">
       <button id="addCmdBtn">Komut Ekle</button>
@@ -85,41 +81,15 @@
       <button id="generateBtn">JSON Üret</button>
       <button id="copyBtn" type="button">Kopyala</button>
     </div>
-    <textarea id="jsonOut" rows="16" style="margin-top:12px;" placeholder="Burada data.json içeriği oluşacak..."></textarea>
-    <p class="small">Not: JSON’u kopyalayıp <code>data.json</code> dosyana yapıştıracaksın.</p>
+    <textarea id="jsonOut" rows="16" style="margin-top:12px;"></textarea>
   </div>
 
-  <script type="module" src="firebase.js"></script>
-<script src="admin-auth.js"></script>
-<script type="module" src="admin.js"></script>
-
-<script type="module" src="firebase.js"></script>
-<!-- <script src="admin-auth.js"></script> -->
-
-<script type="module" src="admin.js"></script>
-
-<div class="card">
-  <h2>Firebase Admin</h2>
-
-  <label>Başlık</label>
-  <input id="siteTitle" placeholder="ern4" />
-
-  <label>Durum</label>
-  <select id="siteStatus">
-    <option>OFFLINE</option>
-    <option>ONLINE</option>
-  </select>
-
-  <label>Duyuru</label>
-  <textarea id="siteAnnouncement" rows="3"></textarea>
-
-  <label>Links (JSON array)</label>
-  <textarea id="linksJson" rows="5" placeholder='[{"label":"Kick","url":"https://kick.com/ern4"}]'></textarea>
-
-  <button id="saveBtn" type="button">Kaydet</button>
 </div>
 
-
+<!-- 🔥 SCRIPTLER – SADECE VE SADECE BUNLAR -->
+<script type="module" src="firebase.js"></script>
+<script type="module" src="admin-auth.js"></script>
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
