@@ -9,13 +9,20 @@ function render(data) {
   const annEl = document.getElementById("announcementText");
 
   if (statusEl) {
-  statusEl.textContent = `Durum: ${data.site.status}`;
-  statusEl.style.background =
-    data.site.status === "ONLINE"
-      ? "linear-gradient(135deg,#00ff99,#00cc66)"
-      : "#ff4d4d";
+  const st = (data.site?.status ?? "OFFLINE").toUpperCase();
+  statusEl.textContent = `Durum: ${st}`;
+
+  // renk
+  const isOnline = st === "ONLINE";
+  statusEl.style.background = isOnline
+    ? "linear-gradient(135deg,#00ff99,#00cc66)"
+    : "#ff4d4d";
   statusEl.style.color = "#fff";
+
+  // animasyon class
+  statusEl.classList.toggle("is-online", isOnline);
 }
+
 
   if (annEl) annEl.textContent = data.site.announcement;
 
