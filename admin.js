@@ -1,79 +1,78 @@
-const links = [];
-const commands = [];
+import { auth, db } from "./firebase.js";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const el = (id) => document.getElementById(id);
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-function renderList(listEl, items, formatFn) {
-  listEl.innerHTML = "";
-  items.forEach((item, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `${formatFn(item)} <button data-i="${i}" style="margin-left:10px;">Sil</button>`;
-    li.querySelector("button").addEventListener("click", (e) => {
-      const idx = Number(e.target.getAttribute("data-i"));
-      items.splice(idx, 1);
-      refresh();
-    });
-    listEl.appendChild(li);
+// Basit UI ekle (admin.html içine buton koymadıysan otomatik ekler)
+function ensureAuthUI() {
+  let wrap = document.getElementById("authBox");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.id = "authBox";
+    wrap.style.display = "flex";
+    wrap.style.gap = "10px";
+    wrap.style.margin = "10px 0";
+    wrap.innerHTML = `
+      <button id="loginBtn" type="button">Google ile Giriş</button>
+      <button id="logoutBtn" type="button" style="display:none;">Çıkış</button>
+      <span id="who" style="opacity:.8;"></span>
+    `;
+    document.body.prepend(wrap);
+  }
+  return wrap;
+}
+
+const ui = ensureAuthUI();
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const who = document.getElementById("who");
+
+loginBtn.onclick = async () => {
+  const provider = new GoogleAuthProvider();
+  await signInWithPopup(auth, provider);
+};
+
+logoutBtn.onclick = async () => {
+  await signOut(auth);
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    who.textContent = user.email ?? user.uid;
+  } else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    who.textContent = "";
+  }
+});
+
+// Kaydetme: admin panelindeki alanları Firestore'a yaz
+const saveBtn = document.getElementById("saveBtn"); // aşağıda admin.html'e ekleyeceğiz
+if (saveBtn) {
+  saveBtn.addEventListener("click", async () => {
+    if (!auth.currentUser) {
+      alert("Önce Google ile giriş yap.");
+      return;
+    }
+
+    const title = document.getElementById("siteTitle").value.trim();
+    const status = document.getElementById("siteStatus").value;
+    const announcement = document.getElementById("siteAnnouncement").value.trim();
+
+    // link listesi (admin panelinde senin mevcut link ekleme mantığın varsa onu bağlarız)
+    // Şimdilik: textarea üzerinden JSON array bekleyelim:
+    let links = [];
+    const linksJson = document.getElementById("linksJson").value.trim();
+    if (linksJson) links = JSON.parse(linksJson);
+
+    await setDoc(doc(db, "site", "config"), { title, status, announcement, links }, { merge: true });
+    alert("Kaydedildi ✅ (site anında güncellenir)");
   });
 }
-
-function refresh() {
-  renderList(el("linksList"), links, (l) => `<b>${l.label}</b> → ${l.url}`);
-  renderList(el("cmdsList"), commands, (c) => `<b>${c.cmd}</b> → ${c.text}`);
-}
-
-el("addLinkBtn").addEventListener("click", () => {
-  const label = el("linkLabel").value.trim();
-  const url = el("linkUrl").value.trim();
-  if (!label || !url) return alert("Label ve URL boş olamaz.");
-
-  links.push({ label, url });
-  el("linkLabel").value = "";
-  el("linkUrl").value = "";
-  refresh();
-});
-
-el("clearLinksBtn").addEventListener("click", () => {
-  links.length = 0;
-  refresh();
-});
-
-el("addCmdBtn").addEventListener("click", () => {
-  const cmd = el("cmdName").value.trim();
-  const text = el("cmdText").value.trim();
-  if (!cmd || !text) return alert("Komut ve yanıt boş olamaz.");
-  if (!cmd.startsWith("!")) return alert("Komut ! ile başlamalı. Örn: !discord");
-
-  commands.push({ cmd, text });
-  el("cmdName").value = "";
-  el("cmdText").value = "";
-  refresh();
-});
-
-el("clearCmdsBtn").addEventListener("click", () => {
-  commands.length = 0;
-  refresh();
-});
-
-el("generateBtn").addEventListener("click", () => {
-  const data = {
-    site: {
-      title: el("siteTitle").value.trim() || "ern427",
-      status: el("siteStatus").value,
-      announcement: el("siteAnnouncement").value.trim() || ""
-    },
-    links,
-    commands
-  };
-
-  el("jsonOut").value = JSON.stringify(data, null, 2);
-});
-
-el("copyBtn").addEventListener("click", async () => {
-  const text = el("jsonOut").value;
-  if (!text) return alert("Önce JSON üret.");
-  await navigator.clipboard.writeText(text);
-  alert("Kopyalandı ✅ Şimdi data.json dosyana yapıştır.");
-});
-
-refresh();
