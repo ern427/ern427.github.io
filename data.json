@@ -1,0 +1,17 @@
+{
+  "site": {
+    "title": "ern427",
+    "status": "OFFLINE",
+    "announcement": "Hoş geldin! Yayın saatleri yakında."
+  },
+  "links": [
+    { "label": "Kick", "url": "https://kick.com/ern427" },
+    { "label": "Discord", "url": "https://discord.gg/XXXX" },
+    { "label": "Instagram", "url": "https://instagram.com/XXXX" }
+  ],
+  "commands": [
+    { "cmd": "!kick", "text": "Kick: https://kick.com/ern427" },
+    { "cmd": "!discord", "text": "Discord: https://discord.gg/XXXX" },
+    { "cmd": "!insta", "text": "Instagram: https://instagram.com/XXXX" }
+  ]
+}
