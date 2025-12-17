@@ -20,40 +20,28 @@
 
 <body>
 
-  <div id="loginBox" class="card">
+<!-- 🔐 LOGIN -->
+<div id="loginBox" class="card">
   <h2>Admin Giriş</h2>
-  <button id="googleLoginBtn">Google ile Giriş</button>
+  <button id="googleLogin">Google ile Giriş</button>
 </div>
 
+<!-- 🔓 ADMIN PANEL -->
 <div id="adminPanel" style="display:none;">
 
-<h1>Admin Panel (JSON Üretici)</h1>
-<p class="small">Google ile giriş yaptıktan sonra düzenleyebilirsin.</p>
-
-<button id="googleLoginBtn">Google ile Giriş</button>
-
-<div id="adminContent" style="display:none;">
+  <h1>Admin Panel (JSON Üretici)</h1>
+  <p class="small">Google ile giriş yaptıktan sonra düzenleyebilirsin.</p>
 
   <div class="card">
     <h2>Site Ayarları</h2>
     <div class="row">
-      <div>
-        <label>Başlık</label>
-        <input id="siteTitle" placeholder="ern427" />
-      </div>
-      <div>
-        <label>Durum</label>
-        <select id="siteStatus">
-          <option value="OFFLINE">OFFLINE</option>
-          <option value="ONLINE">ONLINE</option>
-        </select>
-      </div>
+      <input id="siteTitle" placeholder="ern427" />
+      <select id="siteStatus">
+        <option value="OFFLINE">OFFLINE</option>
+        <option value="ONLINE">ONLINE</option>
+      </select>
     </div>
-
-    <div style="margin-top:12px;">
-      <label>Duyuru</label>
-      <input id="siteAnnouncement" placeholder="Hoş geldin! Yayın saatleri yakında." />
-    </div>
+    <input id="siteAnnouncement" placeholder="Hoş geldin! Yayın saatleri yakında." style="margin-top:12px;" />
   </div>
 
   <div class="card">
@@ -73,7 +61,7 @@
     <h2>Komut Ekle</h2>
     <div class="row">
       <input id="cmdName" placeholder="!discord" />
-      <input id="cmdText" placeholder="Discord: https://discord.gg/XXXX" />
+      <input id="cmdText" placeholder="Discord linki" />
     </div>
     <div class="actions" style="margin-top:12px;">
       <button id="addCmdBtn">Komut Ekle</button>
@@ -93,12 +81,10 @@
 
 </div>
 
-<!-- 🔥 SCRIPTLER – SADECE VE SADECE BUNLAR -->
+<!-- 🔥 SCRIPT SIRASI DOĞRU -->
 <script type="module" src="firebase.js"></script>
 <script type="module" src="admin-auth.js"></script>
-<script type="module" src="admin.js"></script> 
-
-</div>
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
