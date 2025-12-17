@@ -44,4 +44,3 @@ onSnapshot(ref, (snap) => {
   if (snap.exists()) render(snap.data());
   else console.error("Firestore site/config bulunamadı");
 });
-
