@@ -667,3 +667,55 @@ button:hover {
   70%  { box-shadow: 0 0 0 10px rgba(0, 255, 153, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 255, 153, 0); }
 }
+.hero-card {
+  background: rgba(255,255,255,0.92);
+  padding: 30px;
+  border-radius: 18px;
+  max-width: 420px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.hero-desc {
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+/* ONLINE / OFFLINE */
+.status-box {
+  margin: 14px auto;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.status-box.online {
+  background: #16c784;
+  color: white;
+}
+
+.status-box.offline {
+  background: #e74c3c;
+  color: white;
+}
+
+/* Duyuru */
+.announcement-text {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* Linkler */
+.hero-links a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  background: #00ff4c;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(0,255,76,0.6);
+}
