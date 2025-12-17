@@ -3,12 +3,14 @@ import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "BURAYA_YENİ_KOPYALADIĞIN_API_KEY",
+  const firebaseConfig = {
+  apiKey: "AIzaSyDRRQRdUh-Iw-dSGdKeNsvWZHaZ5tcOId0",
   authDomain: "ern4-site.firebaseapp.com",
   projectId: "ern4-site",
-  storageBucket: "ern4-site.appspot.com",
-  messagingSenderId: "XXXX",
-  appId: "1:XXXX:web:XXXX"
+  storageBucket: "ern4-site.firebasestorage.app",
+  messagingSenderId: "169213127920",
+  appId: "1:169213127920:web:534afce822a4fe85706635"
+};
 };
 
 const app = initializeApp(firebaseConfig);
