@@ -1,78 +1,88 @@
-import { auth, db } from "./firebase.js";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+// ===== STATE =====
+let links = [];
+let commands = [];
 
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// ===== ELEMENTLER =====
+const siteTitle = document.getElementById("siteTitle");
+const siteStatus = document.getElementById("siteStatus");
+const siteAnnouncement = document.getElementById("siteAnnouncement");
 
-// Basit UI ekle (admin.html içine buton koymadıysan otomatik ekler)
-function ensureAuthUI() {
-  let wrap = document.getElementById("authBox");
-  if (!wrap) {
-    wrap = document.createElement("div");
-    wrap.id = "authBox";
-    wrap.style.display = "flex";
-    wrap.style.gap = "10px";
-    wrap.style.margin = "10px 0";
-    wrap.innerHTML = `
-      <button id="loginBtn" type="button">Google ile Giriş</button>
-      <button id="logoutBtn" type="button" style="display:none;">Çıkış</button>
-      <span id="who" style="opacity:.8;"></span>
-    `;
-    document.body.prepend(wrap);
-  }
-  return wrap;
-}
+const linkLabel = document.getElementById("linkLabel");
+const linkUrl = document.getElementById("linkUrl");
+const linksList = document.getElementById("linksList");
 
-const ui = ensureAuthUI();
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const who = document.getElementById("who");
+const cmdName = document.getElementById("cmdName");
+const cmdText = document.getElementById("cmdText");
+const cmdsList = document.getElementById("cmdsList");
 
-loginBtn.onclick = async () => {
-  const provider = new GoogleAuthProvider();
-  await signInWithPopup(auth, provider);
+const jsonOut = document.getElementById("jsonOut");
+
+// ===== LINK EKLE =====
+document.getElementById("addLinkBtn").onclick = () => {
+  if (!linkLabel.value || !linkUrl.value) return;
+
+  links.push({ label: linkLabel.value, url: linkUrl.value });
+  renderLinks();
+
+  linkLabel.value = "";
+  linkUrl.value = "";
 };
 
-logoutBtn.onclick = async () => {
-  await signOut(auth);
+document.getElementById("clearLinksBtn").onclick = () => {
+  links = [];
+  renderLinks();
 };
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-    who.textContent = user.email ?? user.uid;
-  } else {
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
-    who.textContent = "";
-  }
-});
-
-// Kaydetme: admin panelindeki alanları Firestore'a yaz
-const saveBtn = document.getElementById("saveBtn"); // aşağıda admin.html'e ekleyeceğiz
-if (saveBtn) {
-  saveBtn.addEventListener("click", async () => {
-    if (!auth.currentUser) {
-      alert("Önce Google ile giriş yap.");
-      return;
-    }
-
-    const title = document.getElementById("siteTitle").value.trim();
-    const status = document.getElementById("siteStatus").value;
-    const announcement = document.getElementById("siteAnnouncement").value.trim();
-
-    // link listesi (admin panelinde senin mevcut link ekleme mantığın varsa onu bağlarız)
-    // Şimdilik: textarea üzerinden JSON array bekleyelim:
-    let links = [];
-    const linksJson = document.getElementById("linksJson").value.trim();
-    if (linksJson) links = JSON.parse(linksJson);
-
-    await setDoc(doc(db, "site", "config"), { title, status, announcement, links }, { merge: true });
-    alert("Kaydedildi ✅ (site anında güncellenir)");
+function renderLinks() {
+  linksList.innerHTML = "";
+  links.forEach(l => {
+    const li = document.createElement("li");
+    li.textContent = `${l.label} → ${l.url}`;
+    linksList.appendChild(li);
   });
 }
+
+// ===== KOMUT EKLE =====
+document.getElementById("addCmdBtn").onclick = () => {
+  if (!cmdName.value || !cmdText.value) return;
+
+  commands.push({ cmd: cmdName.value, text: cmdText.value });
+  renderCmds();
+
+  cmdName.value = "";
+  cmdText.value = "";
+};
+
+document.getElementById("clearCmdsBtn").onclick = () => {
+  commands = [];
+  renderCmds();
+};
+
+function renderCmds() {
+  cmdsList.innerHTML = "";
+  commands.forEach(c => {
+    const li = document.createElement("li");
+    li.textContent = `${c.cmd} → ${c.text}`;
+    cmdsList.appendChild(li);
+  });
+}
+
+// ===== JSON ÜRET =====
+document.getElementById("generateBtn").onclick = () => {
+  const data = {
+    title: siteTitle.value,
+    status: siteStatus.value,
+    announcement: siteAnnouncement.value,
+    links,
+    commands
+  };
+
+  jsonOut.value = JSON.stringify(data, null, 2);
+};
+
+// ===== KOPYALA =====
+document.getElementById("copyBtn").onclick = () => {
+  jsonOut.select();
+  document.execCommand("copy");
+  alert("JSON kopyalandı");
+};

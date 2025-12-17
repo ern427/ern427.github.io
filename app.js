@@ -1,46 +1,49 @@
-import { db } from "./firebase.js";
-import { doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
+    // === ELEMENTLER ===
+    const titleEl = document.getElementById("siteTitleText");
+    const announcementEl = document.getElementById("announcementText");
+    const linksEl = document.getElementById("links");
+    const statusBox = document.getElementById("liveStatusBox");
+    const statusText = document.getElementById("liveStatusText");
 
-function render(data) {
-  // status + announcement
-  const statusEl = document.getElementById("statusText");
-  const annEl = document.getElementById("announcementText");
+    // === BAŞLIK ===
+    if (titleEl && data.title) {
+      titleEl.textContent = data.title;
+    }
 
-  const st = (data.status ?? "OFFLINE").toUpperCase();
+    // === DUYURU ===
+    if (announcementEl && data.announcement) {
+      announcementEl.textContent = data.announcement;
+    }
 
-  if (statusEl) {
-    statusEl.textContent = `Durum: ${st}`;
-    const isOnline = st === "ONLINE";
-    statusEl.style.background = isOnline
-      ? "linear-gradient(135deg,#00ff99,#00cc66)"
-      : "#ff4d4d";
-    statusEl.style.color = "#fff";
-    statusEl.classList.toggle("is-online", isOnline);
-  }
+    // === ONLINE / OFFLINE ===
+    if (data.status) {
+      statusBox.style.display = "block";
 
-  if (annEl) annEl.textContent = data.announcement ?? "";
+      if (data.status === "ONLINE") {
+        statusBox.style.background = "#2ecc71";
+        statusText.textContent = "🟢 ONLINE";
+      } else {
+        statusBox.style.background = "#e74c3c";
+        statusText.textContent = "🔴 OFFLINE";
+      }
+    }
 
-  // links
-  const linksWrap = document.getElementById("links");
-  if (linksWrap) {
-    linksWrap.innerHTML = "";
-    (data.links ?? []).forEach((l) => {
-      const a = document.createElement("a");
-      a.href = l.url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.className = "link-btn"; // sende varsa güzel durur
-      a.textContent = l.label;
-      linksWrap.appendChild(a);
-    });
-  }
-}
-
-// Firestore: site/config
-const ref = doc(db, "site", "config");
-
-// canlı dinle (değişince anında güncellensin)
-onSnapshot(ref, (snap) => {
-  if (snap.exists()) render(snap.data());
-  else console.error("Firestore site/config bulunamadı");
-});
+    // === LİNKLER ===
+    linksEl.innerHTML = "";
+    if (Array.isArray(data.links)) {
+      data.links.forEach(link => {
+        const a = document.createElement("a");
+        a.href = link.url;
+        a.target = "_blank";
+        a.textContent = link.label;
+        a.className = "btn-kick";
+        linksEl.appendChild(a);
+      });
+    }
+  })
+  .catch(err => {
+    console.error("data.json okunamadı:", err);
+  });

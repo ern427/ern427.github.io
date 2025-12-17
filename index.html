@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>ern4 | Anasayfa</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>ern4 | Anasayfa</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- HERO -->
 <div class="hero">
-    <div class="hero-overlay">
-        <h1>Hoş Geldin 👋</h1>
-        <p>Selam! Kick platformundaki ern4 kanalımı takip edersen sevinirim.</p>
-    </div>
+  <div class="hero-overlay">
+    <h1>Hoş Geldin 👋</h1>
+    <p>Selam! Kick platformundaki ern4 kanalımı takip edersen sevinirim.</p>
+  </div>
 </div>
 
+<!-- NAVBAR -->
 <nav class="navbar">
-    <a href="index.html" class="active">Anasayfa</a>
-    <a href="hakkimda.html">Hakkımda</a>
-    <a href="iletisim.html">İletişim</a>
+  <a href="index.html" class="active">Anasayfa</a>
+  <a href="hakkimda.html">Hakkımda</a>
+  <a href="iletisim.html">İletişim</a>
 </nav>
 
+<!-- ANA KART -->
 <section id="anasayfa">
-    <div class="anasayfa-kart">
-    <h1>Hoş Geldin 👋</h1>
-    <p>Umarım kanalımı takip edip abone olursun.</p>
+  <div class="anasayfa-kart">
+    <h1 id="siteTitleText">Hoş Geldin 👋</h1>
+    <p id="announcementText"></p>
+
     <a href="https://kick.com/ern4" target="_blank" class="btn-kick">
-    Kick Kanalıma Git 🚀
-</a>
-</div>
-<p id="mesaj"></p>
+      Kick Kanalıma Git 🚀
+    </a>
+  </div>
 </section>
 
-<footer class="footer">
-    <p>© 2025 ern4 — Tüm hakları saklıdır</p>
+<!-- DİNAMİK LINKLER -->
+<div id="links" class="link-buttons"></div>
 
-    <div class="footer-links">
-        <a href="https://kick.com/ern4" target="_blank" class="kick-btn">🎮 Kick</a>
-        <a href="mailto:merenn120@gmail.com" class="mail-btn">📧 Mail</a>
-    </div>
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 ern4 — Tüm hakları saklıdır</p>
+
+  <div class="footer-links">
+    <a href="https://kick.com/ern4" target="_blank" class="kick-btn">🎮 Kick</a>
+    <a href="mailto:merenn120@gmail.com" class="mail-btn">📧 Mail</a>
+  </div>
 </footer>
 
-<div class="panel-box">
-  <div id="statusText" class="status-badge"></div>
-  <p id="announcementText" class="announcement"></p>
-
-  <div id="links" class="link-buttons"></div>
-  
-  
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
-
-
+<!-- 🔔 ONLINE / OFFLINE KUTUSU -->
+<div id="liveStatusBox" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: white;
+  display: none;
+  z-index: 9999;
+">
+  <span id="liveStatusText"></span>
 </div>
 
-
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
-
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
-
-
-
+<!-- 🔥 SADECE 1 KEZ SCRIPT -->
+<script src="app.js"></script>
 
 </body>
-</html
+</html>

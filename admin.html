@@ -13,7 +13,6 @@
     button { cursor: pointer; }
     .actions { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
     ul { margin: 8px 0 0; padding-left: 18px; }
-    code { background: #f4f4f4; padding: 2px 6px; border-radius: 6px; }
     .small { font-size: 12px; opacity: 0.8; }
   </style>
 </head>
@@ -23,7 +22,7 @@
 <!-- 🔐 LOGIN -->
 <div id="loginBox" class="card">
   <h2>Admin Giriş</h2>
-  <button id="googleLogin">Google ile Giriş</button>
+  <button id="googleLoginBtn">Google ile Giriş</button>
 </div>
 
 <!-- 🔓 ADMIN PANEL -->
@@ -81,7 +80,7 @@
 
 </div>
 
-<!-- 🔥 SCRIPT SIRASI DOĞRU -->
+<!-- 🔥 SCRIPT SIRASI -->
 <script type="module" src="firebase.js"></script>
 <script type="module" src="admin-auth.js"></script>
 <script type="module" src="admin.js"></script>

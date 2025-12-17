@@ -1,9 +1,7 @@
 {
-  "site": {
-    "title": "ern4",
-    "status": "OFFLINE",
-    "announcement": "Hoş geldin! Yayın saatleri discord sunucumdan ve buradan duyurulacaktır. Takipte kalın:)"
-  },
+  "title": "ern4",
+  "status": "OFFLINE",
+  "announcement": "Hoş geldin! Yayın saatlerini buradan duyuracağım takipte kal.",
   "links": [
     {
       "label": "Kick",

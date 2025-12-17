@@ -1,42 +1,35 @@
 import { auth, provider } from "./firebase.js";
 import {
   signInWithPopup,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-function renderLogin() {
-  document.body.innerHTML = `
-    <div style="
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      flex-direction:column;
-      gap:12px;
-    ">
-      <h2>Admin Giriş</h2>
-      <button id="googleLogin">Google ile Giriş</button>
-    </div>
-  `;
+const loginBtn = document.getElementById("googleLoginBtn");
+const loginBox = document.getElementById("loginBox");
+const adminPanel = document.getElementById("adminPanel");
 
-  // 🔴 KRİTİK: Buton OLUSTUKTAN SONRA bağlanıyor
-  const loginBtn = document.getElementById("googleLogin");
+// 🔴 SAYFA AÇILIR AÇILMAZ ÇIKIŞ YAPTIR
+signOut(auth).catch(() => {});
 
-  loginBtn.addEventListener("click", async () => {
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (err) {
-      alert(err.message);
-      console.error(err);
-    }
-  });
-}
+// Google ile giriş
+loginBtn.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (err) {
+    alert(err.message);
+    console.error(err);
+  }
+});
 
+// Auth kontrolü
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    renderLogin();
+  if (user) {
+    // ✅ SADECE BUTONA BASIP GİRİNCE BURAYA GELİR
+    loginBox.style.display = "none";
+    adminPanel.style.display = "block";
   } else {
-    console.log("Giriş yapıldı:", user.email);
-    // Burada admin paneli normal şekilde çalışır
+    loginBox.style.display = "block";
+    adminPanel.style.display = "none";
   }
 });
