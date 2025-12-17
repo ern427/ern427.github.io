@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 14px 0; }
+    input, select, textarea, button { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; }
+    button { cursor: pointer; }
+    .actions { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+    ul { margin: 8px 0 0; padding-left: 18px; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 6px; }
+    .small { font-size: 12px; opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel (JSON Üretici)</h1>
+  <p class="small">Buradan düzenle → JSON üret → <code>data.json</code> dosyana yapıştır → push.</p>
+
+  <div class="card">
+    <h2>Site Ayarları</h2>
+    <div class="row">
+      <div>
+        <label>Başlık</label>
+        <input id="siteTitle" placeholder="ern427" />
+      </div>
+      <div>
+        <label>Durum</label>
+        <select id="siteStatus">
+          <option value="OFFLINE">OFFLINE</option>
+          <option value="ONLINE">ONLINE</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <label>Duyuru</label>
+      <input id="siteAnnouncement" placeholder="Hoş geldin! Yayın saatleri yakında." />
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Link Ekle</h2>
+    <div class="row">
+      <div>
+        <label>Label</label>
+        <input id="linkLabel" placeholder="Kick" />
+      </div>
+      <div>
+        <label>URL</label>
+        <input id="linkUrl" placeholder="https://kick.com/ern427" />
+      </div>
+    </div>
+    <div class="actions" style="margin-top:12px;">
+      <button id="addLinkBtn">Link Ekle</button>
+      <button id="clearLinksBtn" type="button">Tüm Linkleri Temizle</button>
+    </div>
+    <ul id="linksList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>Komut Ekle</h2>
+    <div class="row">
+      <div>
+        <label>Komut</label>
+        <input id="cmdName" placeholder="!discord" />
+      </div>
+      <div>
+        <label>Yanıt</label>
+        <input id="cmdText" placeholder="Discord: https://discord.gg/XXXX" />
+      </div>
+    </div>
+    <div class="actions" style="margin-top:12px;">
+      <button id="addCmdBtn">Komut Ekle</button>
+      <button id="clearCmdsBtn" type="button">Tüm Komutları Temizle</button>
+    </div>
+    <ul id="cmdsList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>JSON Çıktı</h2>
+    <div class="actions">
+      <button id="generateBtn">JSON Üret</button>
+      <button id="copyBtn" type="button">Kopyala</button>
+    </div>
+    <textarea id="jsonOut" rows="16" style="margin-top:12px;" placeholder="Burada data.json içeriği oluşacak..."></textarea>
+    <p class="small">Not: JSON’u kopyalayıp <code>data.json</code> dosyana yapıştıracaksın.</p>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
