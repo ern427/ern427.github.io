@@ -2,7 +2,7 @@
   "site": {
     "title": "ern4",
     "status": "ONLINE",
-    "announcement": "Hoş geldin! Yayın saatleri discord sunucumdan ve buradan duyurulacaktır. Takipte kalın :)"
+    "announcement": "Hoş geldin! Yayın saatleri discord sunucumdan ve buradan duyurulacaktır. Takipte kalın:)"
   },
   "links": [
     {
@@ -10,11 +10,5 @@
       "url": "https://kick.com/ern4"
     }
   ],
-  "commands": [
-    { "cmd": "!kick", "text": "Kick: https://kick.com/ern4" },
-    { "cmd": "!discord", "text": "Discord: https://discord.gg/XXXX" },
-    { "cmd": "!insta", "text": "Instagram: https://instagram.com/XXXX" }
-  ]
+  "commands": []
 }
-
-  
