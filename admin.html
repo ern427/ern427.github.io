@@ -97,6 +97,27 @@
 <script src="admin-auth.js"></script>
 <script type="module" src="admin.js"></script>
 
+<div class="card">
+  <h2>Firebase Admin</h2>
+
+  <label>Başlık</label>
+  <input id="siteTitle" placeholder="ern4" />
+
+  <label>Durum</label>
+  <select id="siteStatus">
+    <option>OFFLINE</option>
+    <option>ONLINE</option>
+  </select>
+
+  <label>Duyuru</label>
+  <textarea id="siteAnnouncement" rows="3"></textarea>
+
+  <label>Links (JSON array)</label>
+  <textarea id="linksJson" rows="5" placeholder='[{"label":"Kick","url":"https://kick.com/ern4"}]'></textarea>
+
+  <button id="saveBtn" type="button">Kaydet</button>
+</div>
+
 
 
 </body>
